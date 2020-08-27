@@ -3,6 +3,14 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  admin_user: $(adminUser)
+  admin_pass: $(adminPass)
+  vm_name: $(vmName)
+  v_net: $(vNet)
+  sub_net: $(subNet)
+
+
 trigger:
 - none
 
@@ -27,5 +35,5 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: ' -vmName $(vmName) -adminUserName $(adminUser) -adminPasswordOrKey $(adminPass) -virtualNetworkName $(vNet) -subnetName $(subNet)'
+    overrideParameters: ' -vmName $(vm_name) -adminUserName $(admin_user) -adminPasswordOrKey $(admin_pass) -virtualNetworkName $(v_net) -subnetName $(sub_net)'
     deploymentMode: 'Incremental'
