@@ -3,9 +3,36 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  ARM_USER: ${adminUser}
+  ARM_PASS: ${adminPass}
+  ARM_CONN: ${azConnection}
+  ARM_SUB: ${subid}
+  ARM_RG: ${resGroup}
+
 trigger:
 - none
 
 pool:
   vmImage: 'ubuntu-latest'
 
+steps:
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '.'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: ARM_CONN
+    subscriptionId: ARM_SUB
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: ARM_RG
+    location: 'uksouth'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
+    csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
+    overrideParameters: '-siteName $(siteName) -administratorLogin $(adminUser) -administratorLoginPassword $(ARM_PASS)'
+    deploymentMode: 'Incremental'
