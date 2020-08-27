@@ -3,13 +3,6 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-variables:
-  ARM_USER: ${adminUser}
-  ARM_PASS: ${adminPass}
-  ARM_CONN: ${azConnection}
-  ARM_SUB: ${subid}
-  ARM_RG: ${resGroup}
-
 trigger:
 - none
 
@@ -26,13 +19,15 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: ARM_CONN
-    subscriptionId: ARM_SUB
+    azureResourceManagerConnection: $(azConnection)
+    subscriptionId: $(subId)
     action: 'Create Or Update Resource Group'
-    resourceGroupName: ARM_RG
+    resourceGroupName: $(resGroup)
     location: 'uksouth'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: '-siteName $(siteName) -administratorLogin $(adminUser) -administratorLoginPassword $(ARM_PASS)'
+    overrideParameters: |
+      -vmName $(vmName) -adminiUserName $(adminUser) -adminPasswordOrKey $(adminPass)
+      -virtualNetworkName $(vNet) -subnetName $(subNet)
     deploymentMode: 'Incremental'
