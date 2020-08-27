@@ -4,11 +4,11 @@
 # https://aka.ms/yaml
 
 variables:
-  admin_user: $(adminUser)
-  admin_pass: $(adminPass)
-  vm_name: $(vmName)
-  v_net: $(vNet)
-  sub_net: $(subNet)
+  ADMIN_USER: $(adminUser)
+  ADMIN_PASS: $(adminPass)
+  VM_NAME: $(vmName)
+  V_NET: $(vNet)
+  SUB_NET: $(subNet)
 
 
 trigger:
@@ -35,5 +35,5 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: ' -vmName $(vm_name) -adminUserName $(admin_user) -adminPasswordOrKey $(admin_pass) -virtualNetworkName $(v_net) -subnetName $(sub_net)'
+    overrideParameters: ' -vmName $(VM_NAME) -adminUserName $(ADMIN_USER) -adminPasswordOrKey $(ADMIN_PASS) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET)'
     deploymentMode: 'Incremental'
