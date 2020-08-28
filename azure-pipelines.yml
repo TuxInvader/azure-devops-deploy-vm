@@ -8,7 +8,9 @@ variables:
   ADMIN_PASS: $(adminPass)
   VM_NAME: $(vmName)
   V_NET: $(vNet)
+  V_NET_PREFIX: $(vNetPrefix)
   SUB_NET: $(subNet)
+  SUB_NET_PREFIX: $(subNetPrefix)
   DNS_PRFX: $(dnsLabelPrefix)
 
 
@@ -36,5 +38,5 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: '-vmName $(VM_NAME) -adminUsername $(ADMIN_USER) -adminPasswordOrKey $(ADMIN_PASS) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET) -dnsLabelPrefix $(DNS_PRFX)'
+    overrideParameters: '-vmName $(VM_NAME) -adminUsername $(ADMIN_USER) -adminPasswordOrKey $(ADMIN_PASS) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET) -dnsLabelPrefix $(DNS_PRFX) -virtualNetworkPrefix $(V_NET_PREFIX) -subnetPrefix $(SUB_NET_PREFIX)'
     deploymentMode: 'Incremental'
