@@ -131,7 +131,6 @@
     },
     "resources": [
         {
-            "condition": "[equals(parameters('newOrExisting'),'new')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
             "name": "[variables('networkInterfaceName')]",
@@ -162,7 +161,6 @@
             }
         },
         {
-            "condition": "[equals(parameters('newOrExisting'),'new')]",
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-02-01",
             "name": "[parameters('networkSecurityGroupName')]",
