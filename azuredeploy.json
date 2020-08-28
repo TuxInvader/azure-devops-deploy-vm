@@ -77,7 +77,7 @@
             "type": "string",
             "defaultValue": "10.1.0.0/16",
             "metadata": {
-                "description": "Name of the VNET"
+                "description": "IP Prefix of the VNET"
             }
         },
         "subnetName": {
@@ -91,7 +91,7 @@
             "type": "string",
             "defaultValue": "10.1.0.0/24",
             "metadata": {
-                "description": "Name of the subnet in the virtual network"
+                "description": "IP Prefix of the subnet"
             }
         },
         "networkSecurityGroupName": {
@@ -100,7 +100,15 @@
             "metadata": {
                 "description": "Name of the Network Security Group"
             }
+        },
+        "deployNetwork": {
+            "type": "boolean",
+            "defaultValue": False
+            "metadata": {
+                "description": "Should the VNET be created? Set to false if it already exists"
+            }
         }
+}
     },
     "variables": {
         "publicIpAddressName": "[concat(parameters('vmName'), 'PublicIP' )]",
@@ -179,7 +187,7 @@
             }
         },
         {
-            "condition": "[equals(parameters('newOrExisting'),'new')]",
+            "condition": "[parameters('deployNetwork')]",
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-04-01",
             "name": "[parameters('virtualNetworkName')]",
@@ -203,7 +211,6 @@
             }
         },
         {
-            "condition": "[equals(parameters('newOrExisting'),'new')]",
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
             "name": "[variables('publicIpAddressName')]",
@@ -222,7 +229,6 @@
             }
         },
         {
-            "condition": "[equals(parameters('newOrExisting'),'new')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
             "name": "[parameters('vmName')]",
