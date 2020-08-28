@@ -103,7 +103,7 @@
         },
         "deployNetwork": {
             "type": "boolean",
-            "defaultValue": False,
+            "defaultValue": FALSE,
             "metadata": {
                 "description": "Should the VNET be created? Set to false if it already exists"
             }
