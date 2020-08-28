@@ -103,12 +103,11 @@
         },
         "deployNetwork": {
             "type": "boolean",
-            "defaultValue": False
+            "defaultValue": False,
             "metadata": {
                 "description": "Should the VNET be created? Set to false if it already exists"
             }
         }
-}
     },
     "variables": {
         "publicIpAddressName": "[concat(parameters('vmName'), 'PublicIP' )]",
