@@ -107,8 +107,8 @@
         "networkInterfaceName": "[concat(parameters('vmName'),'NetInt')]",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
         "osDiskType": "Standard_LRS",
-        "subnetAddressPrefix": "parameters('subnetPrefix')",
-        "addressPrefix": "parameters('virtualNetworkPrefix')",
+        "subnetAddressPrefix": "[parameters('subnetPrefix')]",
+        "addressPrefix": "[parameters('virtualNetworkPrefix')]",
         "linuxConfiguration": {
             "disablePasswordAuthentication": true,
             "ssh": {
