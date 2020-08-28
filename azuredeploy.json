@@ -73,9 +73,23 @@
                 "description": "Name of the VNET"
             }
         },
+        "virtualNetworkPrefix": {
+            "type": "string",
+            "defaultValue": "10.1.0.0/16",
+            "metadata": {
+                "description": "Name of the VNET"
+            }
+        },
         "subnetName": {
             "type": "string",
             "defaultValue": "Subnet",
+            "metadata": {
+                "description": "Name of the subnet in the virtual network"
+            }
+        },
+        "subnetPrefix": {
+            "type": "string",
+            "defaultValue": "10.1.0.0/24",
             "metadata": {
                 "description": "Name of the subnet in the virtual network"
             }
@@ -93,8 +107,8 @@
         "networkInterfaceName": "[concat(parameters('vmName'),'NetInt')]",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
         "osDiskType": "Standard_LRS",
-        "subnetAddressPrefix": "10.1.0.0/24",
-        "addressPrefix": "10.1.0.0/16",
+        "subnetAddressPrefix": "parameters('subnetPrefix')",
+        "addressPrefix": "parameters('virtualNetworkPrefix')",
         "linuxConfiguration": {
             "disablePasswordAuthentication": true,
             "ssh": {
