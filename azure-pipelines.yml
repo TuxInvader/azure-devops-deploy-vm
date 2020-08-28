@@ -12,7 +12,7 @@ variables:
   SUB_NET: $(subNet)
   SUB_NET_PREFIX: $(subNetPrefix)
   DNS_PRFX: $(dnsLabelPrefix)
-  DEPLOY_VNET: False
+  DEPLOY_VNET: false
 
 
 trigger:
