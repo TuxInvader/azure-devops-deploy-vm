@@ -6,7 +6,7 @@
 variables:
   ADMIN_USER: $(adminUser)
   ADMIN_AUTH: $(adminAuth)            # Password or SSH Public Key
-  AUTH_TYPE: "password"
+  AUTH_TYPE: "sshPublicKey"           # password or sshPublicKey
   VM_NAME: $(vmName)
   V_NET: $(vNet)
   V_NET_PREFIX: $(vNetPrefix)
