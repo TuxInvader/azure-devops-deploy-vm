@@ -5,7 +5,7 @@
 
 variables:
   ADMIN_USER: $(adminUser)
-  ADMIN_PASS: $(adminPass)
+  ADMIN_AUTH: $(adminAuth)            # Password or SSH Public Key
   AUTH_TYPE: "password"
   VM_NAME: $(vmName)
   V_NET: $(vNet)
@@ -40,7 +40,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: '-vmName $(VM_NAME) -adminUsername $(ADMIN_USER) -adminPasswordOrKey $(ADMIN_PASS) -authenticationType $(AUTH_TYPE) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET) -dnsLabelPrefix $(DNS_PRFX) -virtualNetworkPrefix $(V_NET_PREFIX) -subnetPrefix $(SUB_NET_PREFIX) -deployNetwork $(DEPLOY_VNET)'
+    overrideParameters: '-vmName $(VM_NAME) -adminUsername $(ADMIN_USER) -adminPasswordOrKey $(ADMIN_AUTH) -authenticationType $(AUTH_TYPE) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET) -dnsLabelPrefix $(DNS_PRFX) -virtualNetworkPrefix $(V_NET_PREFIX) -subnetPrefix $(SUB_NET_PREFIX) -deployNetwork $(DEPLOY_VNET)'
     deploymentMode: 'Incremental'
     deploymentOutputs: 'sshCommand'
 
