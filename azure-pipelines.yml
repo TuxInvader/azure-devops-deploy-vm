@@ -2,21 +2,21 @@
 
 variables:
   # Admin Username
-  ADMIN_USER: "$(adminUser)"
+  ADMIN_USER: $(adminUser)
   
   # adminAuthType should be sshPublicKey or password, and adminAuth should contain the credential
-  ADMIN_AUTH: "$(adminAuth)"
-  ADMIN_AUTH_TYPE: "$(adminAuthType)"
+  ADMIN_AUTH: $(adminAuth)
+  ADMIN_AUTH_TYPE: $(adminAuthType)
 
   # Name of the Virtual machine
-  VM_NAME: "$(vmName)"
+  VM_NAME: $(vmName)
 
   # Virtual Network Settings
-  V_NET: "$(vNet)"
-  V_NET_PREFIX: "$(vNetPrefix)"
-  SUB_NET: "$(subNet)"
-  SUB_NET_PREFIX: "$(subNetPrefix)"
-  DNS_PREFIX: "$(dnsLabelPrefix)"
+  V_NET: $(vNet)
+  V_NET_PREFIX: $(vNetPrefix)
+  SUB_NET: $(subNet)
+  SUB_NET_PREFIX: $(subNetPrefix)
+  DNS_PREFIX: $(dnsLabelPrefix)
   DEPLOY_VNET: false
 
 trigger:
@@ -43,7 +43,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: '-vmName $(VM_NAME) -adminUsername $(ADMIN_USER) -adminPasswordOrKey $(ADMIN_AUTH) -authenticationType $(ADMIN_AUTH_TYPE) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET) -dnsLabelPrefix $(DNS_PREFIX) -virtualNetworkPrefix $(V_NET_PREFIX) -subnetPrefix $(SUB_NET_PREFIX) -deployNetwork $(DEPLOY_VNET)'
+    overrideParameters: '-vmName $(VM_NAME) -adminUsername $(ADMIN_USER) -adminPasswordOrKey "$(ADMIN_AUTH)" -authenticationType $(ADMIN_AUTH_TYPE) -virtualNetworkName $(V_NET) -subnetName $(SUB_NET) -dnsLabelPrefix $(DNS_PREFIX) -virtualNetworkPrefix $(V_NET_PREFIX) -subnetPrefix $(SUB_NET_PREFIX) -deployNetwork $(DEPLOY_VNET)'
     deploymentMode: 'Incremental'
     deploymentOutputs: 'sshCommand'
 
