@@ -17,7 +17,9 @@ variables:
   SUB_NET: $(subNet)
   SUB_NET_PREFIX: $(subNetPrefix)
   DNS_PREFIX: $(dnsLabelPrefix)
-  DEPLOY_VNET: false
+  
+  # Deploy the Virtual network (true or false)?
+  DEPLOY_VNET: $(deployVnet)
 
 trigger:
 - none
@@ -43,7 +45,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
     csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
-    overrideParameters: '-vmName "$(VM_NAME)" -adminUsername "$(ADMIN_USER)" -adminPasswordOrKey "$(ADMIN_AUTH)" -authenticationType "$(ADMIN_AUTH_TYPE)" -virtualNetworkName "$(V_NET)" -subnetName "$(SUB_NET)" -dnsLabelPrefix "$(DNS_PREFIX)" -virtualNetworkPrefix "$(V_NET_PREFIX)" -subnetPrefix "$(SUB_NET_PREFIX)" -deployNetwork $(DEPLOY_VNET)'
+    overrideParameters: '-vmName "$(VM_NAME)" -adminUsername "$(ADMIN_USER)" -adminPasswordOrKey "$(ADMIN_AUTH)" -authenticationType "$(ADMIN_AUTH_TYPE)" -virtualNetworkName "$(V_NET)" -subnetName "$(SUB_NET)" -dnsLabelPrefix "$(DNS_PREFIX)$(VM_NAME)" -virtualNetworkPrefix "$(V_NET_PREFIX)" -subnetPrefix "$(SUB_NET_PREFIX)" -deployNetwork $(DEPLOY_VNET)'
     deploymentMode: 'Incremental'
     deploymentOutputs: 'sshCommand'
 
