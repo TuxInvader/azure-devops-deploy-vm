@@ -1,6 +1,11 @@
 # Deploy a Linux VM into Azure
 
 variables:
+  # Azure Resource Manager Connection
+  AZ_CONN: $(azConnection)
+  SUB_ID: $(subId)
+  RES_GROUP: $(resGroup)
+
   # Admin Username
   ADMIN_USER: $(adminUser)
   
@@ -37,10 +42,10 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: $(azConnection)
+    azureResourceManagerConnection: $(AZ_CONN)
     subscriptionId: $(subId)
     action: 'Create Or Update Resource Group'
-    resourceGroupName: $(resGroup)
+    resourceGroupName: $(RES_GROUP)
     location: 'uksouth'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
